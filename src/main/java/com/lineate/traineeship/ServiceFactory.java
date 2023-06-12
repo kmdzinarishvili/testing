@@ -5,7 +5,7 @@ public final class ServiceFactory {
         return new UserServiceImpl();
     }
 
-    public static EntityService createEntityService() {
+    public static BaseEntityService createEntityService() {
         return new InMemoryEntityService();
     }
 

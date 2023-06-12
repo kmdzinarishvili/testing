@@ -7,17 +7,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class DatabaseEntityServiceTest {
-    private DatabaseEntityService databaseEntityService;
+    private BaseEntityService databaseEntityService;
     private EntityRepository entityRepository;
 
     @BeforeEach
     void setUp() {
         entityRepository = mock(EntityRepository.class);
-        databaseEntityService = new DatabaseEntityService(entityRepository);
+        databaseEntityService = ServiceFactory.createEntityService(entityRepository);
     }
     @Test
     void save() {
         Entity entity = new Entity("test");
+        when(entityRepository.save(new Entity("test"))).thenReturn(true);
         boolean result = databaseEntityService.save(entity);
         assertThat(result).isEqualTo(entityRepository.save(entity));
     }
@@ -27,7 +28,7 @@ class DatabaseEntityServiceTest {
     void getByName() {
         String name = "test";
         Entity entity = new Entity(name);
-        //error because it doesn't insert -- likely entity repository has no implementation
+        when(databaseEntityService.save(new Entity(name))).then();
         databaseEntityService.save(entity);
         Entity result = databaseEntityService.getByName(name);
         assertThat(result.getName()).isEqualTo(name);
@@ -37,6 +38,7 @@ class DatabaseEntityServiceTest {
 
     @Test
     void delete() {
+        when(entityRepository.save(new Entity("name"))).thenReturn(true);
         String name = "name";
         Entity entity = new Entity(name);
         String name1 = "name1";

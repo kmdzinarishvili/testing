@@ -7,13 +7,11 @@ import static org.mockito.Mockito.when;
 
 
 class InMemoryEntityServiceTest {
-    private InMemoryEntityService inMemoryEntityService;
+    private BaseEntityService inMemoryEntityService;
 
     @BeforeEach
     void setUp() {
-        //if I use ServiceFactory, I can't access these methods to test
-        // it would have to return at least a BaseEntityService to test these functions
-        inMemoryEntityService = new InMemoryEntityService();
+        inMemoryEntityService = ServiceFactory.createEntityService();
     }
 
     @Test

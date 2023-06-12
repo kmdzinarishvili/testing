@@ -10,7 +10,6 @@ class UserServiceImplTest {
     private UserService userService;
     @BeforeEach
     void setUp() {
-        when(ServiceFactory.createUserService()).thenReturn(new UserServiceImpl());
         userService = ServiceFactory.createUserService();
     }
 
